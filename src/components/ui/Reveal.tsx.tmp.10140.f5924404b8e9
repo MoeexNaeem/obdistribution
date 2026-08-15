@@ -1,0 +1,56 @@
+"use client";
+
+import { createElement, useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
+
+/**
+ * Reveal — subtle fade/rise as content scrolls into view. Editorial, not flashy
+ * (no glow, no big movement). Honors prefers-reduced-motion.
+ */
+export function Reveal({
+  children,
+  className,
+  delay = 0,
+  as: Tag = "div",
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+  as?: React.ElementType;
+}) {
+  const ref = useRef<HTMLElement>(null);
+  const [shown, setShown] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    // Reduced-motion users still get the reveal, but the global reduced-motion
+    // CSS collapses the transition to ~instant. setState happens only in the
+    // (async) observer callback, never synchronously in the effect body.
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShown(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <Tag
+      ref={ref}
+      className={cn(
+        "transition-[opacity,transform] duration-700 ease-out will-change-[opacity,transform]",
+        shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
+        className,
+      )}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </Tag>
+  );
+}

@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/*
+  OB Distributions — "Dark Broadsheet" design system
+  Editorial structure (incident.io) + premium dark/gold palette.
+  Chromatic color is heavily rationed: gold is the single flare.
+*/
+
+@theme {
+  /* --- Colors (PRD §3.1) --- */
+  --color-canvas: #0a0a0a; /* Deep black — dominant base layer */
+  --color-paper: #161618; /* Carbon — flat card / nav surfaces */
+  --color-ink: #ffffff; /* Pure white — headings & primary copy */
+  --color-mist: #dadada; /* Light gray — secondary descriptive text */
+  --color-hairline: #333333; /* Dark gray — all structural line work */
+  --color-brand-gold: #fbbf24; /* Amber/gold — the single chromatic flare */
+
+  /* --- Typography (Firecrawl model: one grotesque + a mono) --- */
+  /* Geist Sans (Suisse substitute): headings, body, UI — "font-serif" and
+     "font-sans" both resolve here so the whole site is one engineered face. */
+  --font-serif: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  /* Geist Mono: code, technical labels, eyebrows */
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* --- Type scale (tight, PRD §3.2) --- */
+  --text-body: 1rem; /* 16px */
+  --text-body-lg: 1.1875rem; /* 19px */
+  --text-heading-sm: 1.5rem; /* 24px */
+  --text-heading: 2rem; /* 32px */
+  --text-micro: 0.8125rem; /* 13px — Arial UI text */
+
+  /* --- Shape (PRD §3.3) --- */
+  --radius-tag: 4px; /* Buttons & tags — slightly squared off */
+  --radius-card: 12px; /* Cards */
+
+  /* --- Layout --- */
+  --container-page: 1200px;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-canvas);
+}
+
+body {
+  /* Ambient depth is provided by <SiteBackground /> (fixed, layered) */
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Selection uses the rationed gold flare */
+::selection {
+  background: var(--color-brand-gold);
+  color: var(--color-canvas);
+}
+
+/* Editorial focus ring — gold hairline, no glow */
+:focus-visible {
+  outline: 2px solid var(--color-brand-gold);
+  outline-offset: 2px;
+}
+
+/* Hide scrollbar utility used inside scroll-driven frames */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Micro UI text — Arial, 13px, the "Function" voice (PRD §3.2) */
+@utility text-fn {
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  font-weight: 400;
+}
+
+/* Panel cross-fade for the auto-cycling features tabs */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Seamless marquee — content is rendered twice; -50% aligns copy 2 over copy 1 */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Slow horizontal drift for the hero wave ribbons */
+@keyframes waveDrift {
+  0%,
+  100% {
+    transform: translate3d(-18px, 6px, 0);
+  }
+  50% {
+    transform: translate3d(18px, -6px, 0);
+  }
+}
+
+/* Respect reduced-motion for all the scroll-driven animation */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
