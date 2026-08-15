@@ -2,18 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { Menu, X, ChevronDown, ArrowRight, ArrowUpRight, User } from "lucide-react";
-import { nav, site, categories } from "@/lib/site";
+import { useEffect, useState } from "react";
+import { Menu, X, ArrowRight } from "lucide-react";
+import { nav, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/layout/Logo";
 
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [catsOpen, setCatsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const catsRef = useRef<HTMLDivElement>(null);
 
   // Tighten the floating pill (stronger border + shadow) once scrolled.
   useEffect(() => {
@@ -23,22 +21,6 @@ export function Navbar() {
     return () => {
       cancelAnimationFrame(id);
       window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-
-  // Close the categories dropdown on outside click / Escape.
-  useEffect(() => {
-    const onDown = (e: MouseEvent) => {
-      if (catsRef.current && !catsRef.current.contains(e.target as Node)) {
-        setCatsOpen(false);
-      }
-    };
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setCatsOpen(false);
-    window.addEventListener("mousedown", onDown);
-    window.addEventListener("keydown", onKey);
-    return () => {
-      window.removeEventListener("mousedown", onDown);
-      window.removeEventListener("keydown", onKey);
     };
   }, []);
 
@@ -88,7 +70,7 @@ export function Navbar() {
         >
           {/* Left: brand */}
           <Link href="/" aria-label={`${site.name} — home`} className="shrink-0">
-            <Logo />
+            <Logo priority />
           </Link>
 
           {/* Center: links — absolutely centered in the bar */}
@@ -99,56 +81,9 @@ export function Navbar() {
             <NavItem href="/about" active={isActive("/about")}>
               About
             </NavItem>
-
-            {/* Categories dropdown */}
-            <div ref={catsRef} className="relative">
-              <button
-                type="button"
-                onClick={() => setCatsOpen((v) => !v)}
-                aria-expanded={catsOpen}
-                aria-haspopup="true"
-                className={cn(
-                  "inline-flex items-center gap-1 rounded-[10px] px-3 py-2 font-sans text-[0.9375rem] transition-colors",
-                  catsOpen ? "text-ink" : "text-mist hover:text-ink",
-                )}
-              >
-                Categories
-                <ChevronDown
-                  size={15}
-                  className={cn("transition-transform", catsOpen && "rotate-180")}
-                />
-              </button>
-
-              {catsOpen && (
-                <div className="absolute left-0 top-[calc(100%+10px)] w-[520px] rounded-[16px] border border-hairline bg-paper p-3 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)]">
-                  <p className="px-3 pb-2 pt-1 font-sans text-[0.75rem] uppercase tracking-[0.16em] text-mist">
-                    Distribution Categories
-                  </p>
-                  <div className="grid grid-cols-2 gap-1">
-                    {categories.map((c) => (
-                      <Link
-                        key={c.slug}
-                        href={`/#categories`}
-                        onClick={() => setCatsOpen(false)}
-                        className="group rounded-[10px] border border-transparent p-3 transition-colors hover:border-hairline hover:bg-canvas"
-                      >
-                        <span className="flex items-center justify-between font-serif text-[1rem] font-bold text-ink">
-                          {c.name}
-                          <ArrowUpRight
-                            size={14}
-                            className="text-brand-gold opacity-0 transition-opacity group-hover:opacity-100"
-                          />
-                        </span>
-                        <span className="mt-0.5 block font-sans text-[0.8125rem] leading-snug text-mist">
-                          {c.blurb}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
+            <NavItem href="/categories" active={isActive("/categories")}>
+              Categories
+            </NavItem>
             <NavItem href="/why-ob-distributions" active={isActive("/why-ob-distributions")}>
               Why OB
             </NavItem>
@@ -157,16 +92,8 @@ export function Navbar() {
             </NavItem>
           </div>
 
-          {/* Right: account + CTA */}
+          {/* Right: CTA */}
           <div className="flex items-center gap-2">
-            <Link
-              href="/contact"
-              aria-label="Account"
-              className="hidden h-10 w-10 items-center justify-center rounded-full border border-hairline text-mist transition-colors hover:border-ink hover:text-ink sm:inline-flex"
-            >
-              <User size={17} />
-            </Link>
-
             <PillCta href="/wholesale-program" className="hidden sm:inline-flex">
               Wholesale Program
             </PillCta>

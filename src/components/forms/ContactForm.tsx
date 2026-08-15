@@ -13,7 +13,8 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 const inputBase =
   "w-full rounded-[10px] border border-white/12 bg-canvas px-4 py-3 font-sans text-[0.9375rem] text-ink " +
-  "placeholder:text-mist/45 transition-colors focus:border-brand-gold focus:outline-none focus:ring-1 focus:ring-brand-gold/25";
+  "placeholder:text-mist/45 transition-colors hover:border-white/25 " +
+  "focus:border-brand-gold focus:outline-none focus:ring-1 focus:ring-brand-gold/25";
 
 const labelBase = "mb-2 block font-sans text-[0.8125rem] font-medium text-mist";
 

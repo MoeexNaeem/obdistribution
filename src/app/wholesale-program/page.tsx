@@ -3,6 +3,7 @@ import { ShieldCheck, BadgePercent, Truck } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
+import { NodeSpine, type SpineItem } from "@/components/reactbits/NodeSpine";
 import { WholesaleForm } from "@/components/forms/WholesaleForm";
 
 export const metadata: Metadata = {
@@ -30,6 +31,11 @@ const perks = [
 ];
 
 export default function WholesaleProgramPage() {
+  const perkItems: SpineItem[] = perks.map((p) => {
+    const Icon = p.icon;
+    return { title: p.title, body: p.body, icon: <Icon size={16} /> };
+  });
+
   return (
     <>
       {/* Hero */}
@@ -50,12 +56,12 @@ export default function WholesaleProgramPage() {
             </span>
           </Reveal>
           <Reveal delay={100}>
-            <h1 className="mx-auto mt-7 max-w-3xl font-sans text-[2.25rem] font-semibold leading-[1.05] tracking-[-0.02em] text-ink sm:text-[3.5rem]">
+            <h1 className="mx-auto mt-6 max-w-2xl font-sans text-[2rem] font-semibold leading-[1.08] tracking-[-0.02em] text-ink sm:text-[2.75rem]">
               Join our wholesale program
             </h1>
           </Reveal>
           <Reveal delay={180}>
-            <p className="mx-auto mt-6 max-w-xl font-sans text-[1.0625rem] leading-relaxed text-mist">
+            <p className="mx-auto mt-5 max-w-xl font-sans text-[1rem] leading-relaxed text-mist sm:text-[1.0625rem]">
               Unlock exclusive access to premium products, competitive bulk pricing, and
               reliable support that helps your business grow.
             </p>
@@ -70,7 +76,7 @@ export default function WholesaleProgramPage() {
             <p className="font-sans text-[0.75rem] font-medium uppercase tracking-[0.2em] text-brand-gold">
               Why join
             </p>
-            <h2 className="mt-4 max-w-xl font-sans text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[2.25rem]">
+            <h2 className="mt-4 max-w-xl font-sans text-[1.5rem] font-semibold leading-[1.15] tracking-[-0.02em] text-ink sm:text-[2rem]">
               Built to make your business more profitable
             </h2>
             <div className="mt-6 space-y-4 font-sans text-[1.0625rem] leading-relaxed text-mist">
@@ -94,26 +100,8 @@ export default function WholesaleProgramPage() {
             </div>
           </Reveal>
 
-          <Reveal from="right" delay={120} className="grid content-start gap-4">
-            {perks.map((p) => {
-              const Icon = p.icon;
-              return (
-                <div
-                  key={p.title}
-                  className="flex items-start gap-4 rounded-[14px] border border-white/10 bg-white/[0.03] p-5 backdrop-blur-md"
-                >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] bg-brand-gold/15 ring-1 ring-brand-gold/30">
-                    <Icon size={20} className="text-brand-gold" />
-                  </span>
-                  <div>
-                    <h3 className="font-sans text-[1.0625rem] font-semibold text-ink">{p.title}</h3>
-                    <p className="mt-1 font-sans text-[0.9375rem] leading-relaxed text-mist">
-                      {p.body}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
+          <Reveal from="right" delay={120} className="self-center">
+            <NodeSpine items={perkItems} />
           </Reveal>
         </div>
       </Section>
@@ -125,10 +113,10 @@ export default function WholesaleProgramPage() {
             <p className="font-sans text-[0.75rem] font-medium uppercase tracking-[0.2em] text-brand-gold">
               Application
             </p>
-            <h2 className="mt-4 font-sans text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[2.5rem]">
+            <h2 className="mt-4 font-sans text-[1.5rem] font-semibold leading-[1.15] tracking-[-0.02em] text-ink sm:text-[2rem]">
               Submit your wholesale application
             </h2>
-            <p className="mx-auto mt-5 max-w-lg font-sans text-[1rem] leading-relaxed text-mist">
+            <p className="mx-auto mt-5 max-w-lg font-sans text-[0.9375rem] leading-relaxed text-mist sm:text-[1rem]">
               Tell us about your business and we&apos;ll set you up with wholesale pricing
               and the full product list.
             </p>

@@ -32,12 +32,12 @@ export function PageHero({
           </span>
         </Reveal>
         <Reveal delay={100}>
-          <h1 className="mx-auto mt-7 max-w-3xl font-sans text-[2.25rem] font-semibold leading-[1.05] tracking-[-0.02em] text-ink sm:text-[3.5rem]">
+          <h1 className="mx-auto mt-6 max-w-2xl font-sans text-[2rem] font-semibold leading-[1.08] tracking-[-0.02em] text-ink sm:text-[2.75rem]">
             {title}
           </h1>
         </Reveal>
         <Reveal delay={180}>
-          <p className="mx-auto mt-6 max-w-xl font-sans text-[1.0625rem] leading-relaxed text-mist">
+          <p className="mx-auto mt-5 max-w-xl font-sans text-[1rem] leading-relaxed text-mist sm:text-[1.0625rem]">
             {subtitle}
           </p>
         </Reveal>

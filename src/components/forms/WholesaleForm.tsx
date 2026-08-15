@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   businessTypes,
@@ -9,13 +8,15 @@ import {
   volumeOptions,
   paymentMethods,
 } from "@/lib/wholesale";
+import { SmoothSelect } from "@/components/forms/SmoothSelect";
 
 type FieldErrors = Partial<Record<string, string[]>>;
 type Status = "idle" | "submitting" | "success" | "error";
 
 const inputBase =
   "w-full rounded-[10px] border border-white/12 bg-canvas px-4 py-3 font-sans text-[0.9375rem] text-ink " +
-  "placeholder:text-mist/45 transition-colors focus:border-brand-gold focus:outline-none focus:ring-1 focus:ring-brand-gold/25";
+  "placeholder:text-mist/45 transition-colors hover:border-white/25 " +
+  "focus:border-brand-gold focus:outline-none focus:ring-1 focus:ring-brand-gold/25";
 const labelBase = "mb-2 block font-sans text-[0.8125rem] font-medium text-mist";
 
 function Field({
@@ -41,43 +42,6 @@ function Field({
       {errors?.length ? (
         <p className="mt-1.5 font-sans text-[0.8125rem] text-brand-gold">{errors[0]}</p>
       ) : null}
-    </div>
-  );
-}
-
-function Select({
-  id,
-  name,
-  options,
-  placeholder,
-}: {
-  id: string;
-  name: string;
-  options: readonly { value: string; label: string }[];
-  placeholder: string;
-}) {
-  return (
-    <div className="relative">
-      <select
-        id={id}
-        name={name}
-        defaultValue=""
-        required
-        className={cn(inputBase, "appearance-none pr-10")}
-      >
-        <option value="" disabled>
-          {placeholder}
-        </option>
-        {options.map((o) => (
-          <option key={o.value} value={o.value} className="bg-paper text-ink">
-            {o.label}
-          </option>
-        ))}
-      </select>
-      <ChevronDown
-        size={16}
-        className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-mist"
-      />
     </div>
   );
 }
@@ -193,19 +157,19 @@ export function WholesaleForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <Field id="businessType" label="Type of Business" required errors={errors.businessType}>
-          <Select id="businessType" name="businessType" options={businessTypes} placeholder="Select business type" />
+          <SmoothSelect id="businessType" name="businessType" options={businessTypes} placeholder="Select business type" invalid={!!errors.businessType} />
         </Field>
         <Field id="storefront" label="Do you have a physical storefront?" required errors={errors.storefront}>
-          <Select id="storefront" name="storefront" options={storefrontOptions} placeholder="Select an option" />
+          <SmoothSelect id="storefront" name="storefront" options={storefrontOptions} placeholder="Select an option" invalid={!!errors.storefront} />
         </Field>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
         <Field id="monthlyVolume" label="Estimated Monthly Purchase Volume" required errors={errors.monthlyVolume}>
-          <Select id="monthlyVolume" name="monthlyVolume" options={volumeOptions} placeholder="Select volume" />
+          <SmoothSelect id="monthlyVolume" name="monthlyVolume" options={volumeOptions} placeholder="Select volume" invalid={!!errors.monthlyVolume} />
         </Field>
         <Field id="paymentMethod" label="Preferred Payment Method" required errors={errors.paymentMethod}>
-          <Select id="paymentMethod" name="paymentMethod" options={paymentMethods} placeholder="Select payment method" />
+          <SmoothSelect id="paymentMethod" name="paymentMethod" options={paymentMethods} placeholder="Select payment method" invalid={!!errors.paymentMethod} />
         </Field>
       </div>
 

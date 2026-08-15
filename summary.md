@@ -22,7 +22,7 @@ accounts / checkout): the dynamic pieces are the contact & lead-capture forms.
 | Validation | Zod |
 | Animation / WebGL | `ogl` (Strands, MoltenMetal), `three` + `@react-three/fiber` (Antigravity), `three` (MagicRings), `gsap` (FlowingMenu), `lenis` (ScrollStack), CSS |
 
-Full dependency list: `next, react, react-dom, tailwindcss, mongodb, zod, lucide-react, lenis, ogl, three, @react-three/fiber, gsap`.
+Full dependency list: `next, react, react-dom, tailwindcss, mongodb, zod, lucide-react, lenis, ogl, three, @react-three/fiber, gsap, cobe, nodemailer`.
 
 ---
 
@@ -32,9 +32,12 @@ Full dependency list: `next, react, react-dom, tailwindcss, mongodb, zod, lucide
 | --- | --- |
 | `/` | Home — the full marketing landing page (see sections below) |
 | `/about` | About Us — hero, values, animated focus-area bars |
+| `/categories` | Distribution Categories — dedicated page. Interactive **Miller-columns** catalog browser (category → product lines → detail, with breadcrumb + keyboard nav), a `StatStrip`, and a CTA. Replaces the old navbar mega-dropdown. |
 | `/why-ob-distributions` | Differentiators (ScrollStack) + FAQ accordion |
-| `/contact` | Contact form + keyless Google Maps embed |
-| `/api/contact` (POST) | Contact form submissions → MongoDB |
+| `/wholesale-program` | Wholesale application (perks + `WholesaleForm` with custom `SmoothSelect` dropdowns) |
+| `/contact` | Contact form + **COBE WebGL globe** (global-network section) + keyless Google Maps embed |
+| `/api/contact` (POST) | Contact form submissions → MongoDB + email notify (nodemailer) |
+| `/api/wholesale` (POST) | Wholesale applications → MongoDB + email notify (nodemailer) |
 | `/api/leads` (POST) | "Request product list" / onboarding leads → MongoDB |
 | `/sitemap.xml`, `/robots.txt` | SEO |
 
@@ -57,7 +60,8 @@ Full dependency list: `next, react, react-dom, tailwindcss, mongodb, zod, lucide
 
 ## Backend & security
 
-- **Forms:** `/api/contact` and `/api/leads` write to MongoDB collections `contact_submissions` and `leads`, each with `meta` (ip, user-agent, referer) + `createdAt`.
+- **Forms:** `/api/contact`, `/api/wholesale`, and `/api/leads` write to MongoDB collections `contact_submissions`, `wholesale_applications`, and `leads`, each with `meta` (ip, user-agent, referer) + `createdAt`.
+- **Email (nodemailer):** `lib/mailer.ts` sends a notification of each contact/wholesale submission to the OB inbox (`ori@obdistributions.com`) over SMTP. Configured via env (`SMTP_HOST`/`SMTP_PORT`/`SMTP_USER`/`SMTP_PASS`, optional `SMTP_FROM`/`MAIL_TO`); Google Workspace defaults. Best-effort — a mail failure never fails the submission, and with no SMTP creds the forms still work (no email sent).
 - **Connection:** cached MongoDB client (`lib/mongodb.ts`) — safe for HMR, serverless, and a long-lived Node server. Without `MONGODB_URI`, dev validates + accepts but does not persist; prod returns 503.
 - **Validation:** Zod schemas (`lib/validation.ts`), trimmed + length-capped.
 - **Rate limiting:** in-memory 5 req/min per IP per endpoint (`lib/rateLimit.ts`).
@@ -82,7 +86,8 @@ src/
                CategoriesMenu, TestimonialsMarquee, PartnerBanner, AntigravityBackdrop,
                FocusBars, FaqAccordion, GoogleMap
     reactbits/ Strands, FlowingMenu, MagicRings, MoltenMetal, Antigravity,
-               BlurHighlight, BorderGlow, ScrollExpand, ScrollStack, FeaturesTabs, OptionWheel
+               BlurHighlight, BorderGlow, ScrollExpand, ScrollStack, FeaturesTabs, OptionWheel,
+               Globe (COBE), MillerColumns, NodeSpine, DirectoryList
   lib/         site.ts, content.ts, mongodb.ts, validation.ts, rateLimit.ts, apiResponse.ts, utils.ts
 public/        hero.svg, showcase.svg
 ```

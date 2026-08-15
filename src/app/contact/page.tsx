@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
+import { StatStrip } from "@/components/ui/StatStrip";
 import { PageHero } from "@/components/sections/PageHero";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { GoogleMap } from "@/components/sections/GoogleMap";
+import { Globe } from "@/components/reactbits/Globe";
+import { DirectoryList, type DirEntry } from "@/components/reactbits/DirectoryList";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -14,6 +17,13 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
+  const entries: DirEntry[] = [
+    { name: "Phone", value: site.phone, kind: "tel", href: site.phoneHref, icon: <Phone size={17} /> },
+    { name: "Email", value: site.email, kind: "mail", href: `mailto:${site.email}`, icon: <Mail size={17} /> },
+    { name: "Address", value: site.address.full, kind: "geo", icon: <MapPin size={17} /> },
+    { name: "Hours", value: "Mon–Fri · 9:00 AM – 5:00 PM ET", kind: "time", icon: <Clock size={17} /> },
+  ];
+
   return (
     <>
       <PageHero
@@ -22,34 +32,19 @@ export default function ContactPage() {
         subtitle="Request our product list, discuss bulk orders, or ask about onboarding — our team makes wholesale stress-free and reliable."
       />
 
-      {/* Contact info + form */}
+      {/* Contact directory + form */}
       <Section>
         <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-16">
-          {/* Details */}
+          {/* Details — directory listing */}
           <Reveal from="left">
             <p className="font-sans text-[0.75rem] font-medium uppercase tracking-[0.2em] text-brand-gold">
               Contact
             </p>
-            <h2 className="mt-4 font-sans text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[2.25rem]">
+            <h2 className="mt-4 font-sans text-[1.5rem] font-semibold leading-[1.15] tracking-[-0.02em] text-ink sm:text-[2rem]">
               Reach our team directly
             </h2>
-            <div className="mt-8 grid gap-3">
-              <ContactRow icon={<Phone size={18} />} label="Phone">
-                <a href={site.phoneHref} className="transition-colors hover:text-brand-gold">
-                  {site.phone}
-                </a>
-              </ContactRow>
-              <ContactRow icon={<Mail size={18} />} label="Email">
-                <a href={`mailto:${site.email}`} className="transition-colors hover:text-brand-gold">
-                  {site.email}
-                </a>
-              </ContactRow>
-              <ContactRow icon={<MapPin size={18} />} label="Address">
-                {site.address.full}
-              </ContactRow>
-              <ContactRow icon={<Clock size={18} />} label="Hours">
-                Mon–Fri, 9:00 AM – 5:00 PM ET
-              </ContactRow>
+            <div className="mt-8">
+              <DirectoryList entries={entries} />
             </div>
           </Reveal>
 
@@ -62,13 +57,53 @@ export default function ContactPage() {
         </div>
       </Section>
 
+      {/* Global reach — COBE globe */}
+      <Section>
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
+          <Reveal from="left">
+            <p className="font-sans text-[0.75rem] font-medium uppercase tracking-[0.2em] text-brand-gold">
+              Global Network
+            </p>
+            <h2 className="mt-4 max-w-md font-sans text-[1.5rem] font-semibold leading-[1.15] tracking-[-0.02em] text-ink sm:text-[2rem]">
+              Sourcing that spans the globe
+            </h2>
+            <p className="mt-5 max-w-md font-sans text-[1rem] leading-relaxed text-mist sm:text-[1.0625rem]">
+              From our West Palm Beach hub we work with trusted suppliers and logistics
+              partners across major trade lanes — so the products your customers want arrive
+              on time, wherever they&apos;re made.
+            </p>
+            <StatStrip
+              className="mt-8 max-w-md"
+              items={[
+                { value: "8", label: "Trade hubs" },
+                { value: "24/7", label: "Fulfillment" },
+                { value: "200+", label: "Brands" },
+                { value: "99%", label: "On-time" },
+              ]}
+            />
+          </Reveal>
+
+          <Reveal from="right" delay={120} className="flex justify-center">
+            <div
+              className="relative w-full max-w-[440px]"
+              style={{
+                maskImage: "radial-gradient(circle at 50% 50%, #000 62%, transparent 78%)",
+                WebkitMaskImage: "radial-gradient(circle at 50% 50%, #000 62%, transparent 78%)",
+              }}
+            >
+              <Globe className="w-full" />
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
       {/* Map */}
       <Section>
         <Reveal>
           <p className="font-sans text-[0.75rem] font-medium uppercase tracking-[0.2em] text-brand-gold">
             Find Us
           </p>
-          <h2 className="mt-4 font-sans text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[2.25rem]">
+          <h2 className="mt-4 font-sans text-[1.5rem] font-semibold leading-[1.15] tracking-[-0.02em] text-ink sm:text-[2rem]">
             West Palm Beach, Florida
           </h2>
         </Reveal>
@@ -77,29 +112,5 @@ export default function ContactPage() {
         </Reveal>
       </Section>
     </>
-  );
-}
-
-function ContactRow({
-  icon,
-  label,
-  children,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="flex items-start gap-4 rounded-[14px] border border-white/10 bg-white/[0.02] p-4">
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-brand-gold/15 text-brand-gold ring-1 ring-brand-gold/30">
-        {icon}
-      </span>
-      <div>
-        <p className="font-sans text-[0.75rem] font-medium uppercase tracking-[0.14em] text-mist/70">
-          {label}
-        </p>
-        <p className="mt-1 font-sans text-[1rem] text-ink">{children}</p>
-      </div>
-    </div>
   );
 }

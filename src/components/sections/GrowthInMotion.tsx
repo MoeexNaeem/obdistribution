@@ -101,29 +101,46 @@ const STEP = 14;
 
 export function GrowthInMotion() {
   const [active, setActive] = useState(0);
+  const [sub, setSub] = useState(0); // 0→1 progress of the incoming card, for the rail fill
   const refs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     let raf = 0;
     const compute = () => {
       raf = 0;
+      const vh = window.innerHeight;
+      // A card becomes "active" once its top rises past this line — i.e. when it
+      // has visually taken over the upper portion of the viewport, not only once
+      // it reaches its final pinned offset. This keeps the index in sync with the
+      // card the eye is actually reading.
+      const line = vh * 0.42;
       let current = 0;
-      // The active card is the highest-index one that has reached its own pinned
-      // position (each card pins at STICK_TOP + i*STEP). transform-origin is the
-      // top edge, so the scale taper doesn't shift these measurements.
       for (let i = 0; i < refs.current.length; i++) {
         const el = refs.current[i];
-        if (el && el.getBoundingClientRect().top <= STICK_TOP + i * STEP + 8) current = i;
+        if (el && el.getBoundingClientRect().top <= line) current = i;
       }
+
+      // Continuous progress of the next incoming card (line → 0..1) so the rail
+      // fill glides between nodes instead of snapping.
+      let s = 0;
+      const next = refs.current[current + 1];
+      if (next) {
+        const nt = next.getBoundingClientRect().top;
+        s = Math.min(Math.max((vh - nt) / (vh - line), 0), 1);
+      }
+
       setActive((prev) => (prev === current ? prev : current));
+      setSub((prev) => (Math.abs(prev - s) < 0.004 ? prev : s));
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(compute);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
     const id = requestAnimationFrame(compute);
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       if (raf) cancelAnimationFrame(raf);
       cancelAnimationFrame(id);
     };
@@ -178,35 +195,79 @@ export function GrowthInMotion() {
               </h2>
             </Reveal>
 
-            <div className="mt-8 flex flex-wrap gap-2.5">
-              {features.map((f, i) => (
-                <button
-                  key={f.n}
-                  type="button"
-                  onClick={() => jump(i)}
-                  aria-label={`Go to ${f.title}`}
-                  aria-current={active === i}
-                  className={cn(
-                    "inline-flex h-11 w-11 items-center justify-center font-sans text-[0.875rem] tabular-nums transition-all duration-300",
-                    active === i
-                      ? "rounded-[12px] bg-brand-gold font-semibold text-canvas"
-                      : "rounded-full border border-white/15 font-medium text-mist hover:border-ink hover:text-ink",
-                  )}
-                >
-                  {f.n}
-                </button>
-              ))}
-            </div>
+            {/* Progress rail — the six services threaded on a spine that fills
+                gold to the card currently in view. No numbers; the fill is the
+                sync indicator. */}
+            <nav aria-label="Services" className="mt-8">
+              {features.map((f, i) => {
+                const on = active === i;
+                const isFirst = i === 0;
+                const isLast = i === features.length - 1;
+                return (
+                  <button
+                    key={f.n}
+                    type="button"
+                    onClick={() => jump(i)}
+                    aria-current={on}
+                    className="group grid w-full grid-cols-[18px_1fr] items-stretch gap-4 text-left"
+                  >
+                    <span className="relative flex justify-center">
+                      {/* segment entering this node */}
+                      {!isFirst && (
+                        <span
+                          className={cn(
+                            "absolute left-1/2 top-0 h-1/2 w-px -translate-x-1/2 transition-colors duration-200",
+                            i <= active ? "bg-brand-gold" : "bg-hairline",
+                          )}
+                        />
+                      )}
+                      {/* segment leaving this node — fills continuously on the active row */}
+                      {!isLast && (
+                        <span className="absolute bottom-0 left-1/2 top-1/2 w-px -translate-x-1/2 bg-hairline">
+                          <span
+                            className="block w-px bg-brand-gold transition-[height] duration-150 ease-out"
+                            style={{ height: i < active ? "100%" : on ? `${sub * 100}%` : "0%" }}
+                          />
+                        </span>
+                      )}
+                      {/* node */}
+                      <span
+                        className={cn(
+                          "relative z-10 my-auto rounded-full ring-4 ring-canvas transition-all duration-200",
+                          on
+                            ? "h-3 w-3 bg-brand-gold shadow-[0_0_0_4px_rgba(251,191,36,0.16)]"
+                            : i < active
+                              ? "h-2.5 w-2.5 bg-brand-gold"
+                              : "h-2.5 w-2.5 bg-[#3a3a42] group-hover:bg-mist/60",
+                        )}
+                      />
+                    </span>
+                    <span
+                      className={cn(
+                        "py-3.5 font-sans text-[0.9375rem] transition-colors",
+                        on
+                          ? "font-medium text-ink"
+                          : i < active
+                            ? "text-mist"
+                            : "text-mist/70 group-hover:text-ink",
+                      )}
+                    >
+                      {f.title}
+                    </span>
+                  </button>
+                );
+              })}
+            </nav>
 
-            {/* Counting stats */}
+            {/* Counting stats — hairline-gridded to match the index panel */}
             <Reveal delay={120}>
-              <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-7 border-t border-white/15 pt-8">
+              <dl className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-[14px] border border-hairline bg-hairline">
                 {metrics.map((m) => (
-                  <div key={m.label}>
-                    <dt className="font-sans text-[1.75rem] font-semibold leading-none tabular-nums text-ink">
+                  <div key={m.label} className="bg-[#0c0c0e] px-4 py-4">
+                    <dt className="font-sans text-[1.5rem] font-semibold leading-none tabular-nums text-ink">
                       <Counter value={m.value} suffix={m.suffix} />
                     </dt>
-                    <dd className="mt-2 font-sans text-[0.75rem] uppercase tracking-[0.12em] text-mist">
+                    <dd className="mt-2 font-mono text-[0.68rem] uppercase tracking-[0.1em] text-mist/60">
                       {m.label}
                     </dd>
                   </div>
@@ -281,6 +342,9 @@ export function GrowthInMotion() {
                 </article>
               );
             })}
+            {/* Tail room so the final card holds its pinned position for a beat
+                before the stack releases (otherwise it snaps away instantly). */}
+            <div aria-hidden className="h-[22vh]" />
           </div>
         </div>
       </Container>

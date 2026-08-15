@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import FlowingMenu from "@/components/reactbits/FlowingMenu";
@@ -9,7 +11,7 @@ import { categories } from "@/lib/site";
 */
 export function CategoriesMenu() {
   const items = categories.map((c) => ({
-    link: "/contact",
+    link: "/categories",
     text: c.name,
     description: c.blurb,
   }));
@@ -29,6 +31,16 @@ export function CategoriesMenu() {
             at the right prices. Explore our distribution categories and get access to
             high-quality inventory that drives sales and keeps your shelves full.
           </p>
+          <Link
+            href="/categories"
+            className="group mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-paper px-5 py-2.5 font-sans text-[0.9375rem] text-mist transition-colors hover:border-white/30 hover:text-ink"
+          >
+            View all categories
+            <ArrowRight
+              size={15}
+              className="text-brand-gold transition-transform group-hover:translate-x-0.5"
+            />
+          </Link>
         </Reveal>
 
         <Reveal delay={120} className="mt-12 overflow-hidden rounded-[16px] border border-hairline">
