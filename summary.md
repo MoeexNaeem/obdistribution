@@ -108,8 +108,15 @@ npm run build && npm run start # production
 ```
 
 Environment variables: `MONGODB_URI` (required in prod), `MONGODB_DB` (default
-`obdistributions`), `NEXT_PUBLIC_SITE_URL`. Hostinger: build, set env vars in the panel,
-run `node .next/standalone/server.js` (Node 20+). See `README.md` for full deploy steps.
+`obdistributions`), `NEXT_PUBLIC_SITE_URL`, plus the SMTP vars (see above). Hostinger:
+build, set env vars in the panel, run `node .next/standalone/server.js` (Node 20+). See
+`README.md` for full deploy steps.
+
+**Deploy target & `output`:** `next.config.ts` sets `output: "standalone"` only when
+**not** on Vercel (`process.env.VERCEL`). Vercel runs its own file-tracing
+(`onBuildComplete`) that conflicts with standalone output and fails on
+`.next/next-server.js.nft.json`; leaving `output` at its default on Vercel fixes that while
+Hostinger keeps the standalone bundle. So the same repo deploys cleanly to both.
 
 ---
 
