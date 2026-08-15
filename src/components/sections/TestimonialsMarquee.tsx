@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils";
 import { testimonials } from "@/lib/content";
 
 /*
-  Testimonials — two auto-scrolling marquee rows of star-rated review cards over
-  a warm gold glow. Row one drifts right-to-left, row two left-to-right; both
-  pause on hover. Content is duplicated per row so the loop is seamless.
+  Testimonials — a single auto-scrolling marquee row of star-rated review cards
+  over a warm gold glow. Drifts right-to-left and pauses on hover; content is
+  duplicated so the loop is seamless.
 */
 
 type Review = (typeof testimonials)[number];
@@ -72,9 +72,6 @@ function Row({ items, reverse }: { items: Review[]; reverse?: boolean }) {
 }
 
 export function TestimonialsMarquee() {
-  const rowOne = testimonials;
-  const rowTwo = [...testimonials].reverse();
-
   return (
     <section className="relative overflow-hidden border-t border-hairline py-20 sm:py-28">
       {/* Warm gold glow blooming from the bottom */}
@@ -101,10 +98,9 @@ export function TestimonialsMarquee() {
         </Reveal>
       </Container>
 
-      {/* Full-bleed marquee rows */}
-      <div className="relative z-10 mt-14 space-y-5">
-        <Row items={rowOne} />
-        <Row items={rowTwo} reverse />
+      {/* Full-bleed marquee — a single auto-scrolling row */}
+      <div className="relative z-10 mt-14">
+        <Row items={testimonials} />
       </div>
     </section>
   );

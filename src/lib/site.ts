@@ -31,46 +31,72 @@ export const nav = [
   { label: "Contact", href: "/contact" },
 ] as const;
 
-/** Product categories the platform serves (PRD §1). */
+/** Product categories the platform serves. */
 export const categories = [
   {
-    slug: "beauty",
-    name: "Beauty",
-    blurb: "Cosmetics, skincare, and personal-care lines with fast-moving SKUs.",
-    highlights: ["Cosmetics", "Skincare", "Haircare", "Fragrance", "Personal care"],
-  },
-  {
-    slug: "home-kitchen",
-    name: "Home & Kitchen",
-    blurb: "Everyday essentials and durable goods that keep shelves turning.",
-    highlights: ["Cookware", "Storage & organization", "Cleaning", "Small appliances", "Tableware"],
-  },
-  {
-    slug: "tools-outdoor",
-    name: "Tools & Outdoor",
+    slug: "health-household",
+    name: "Health & Household",
     blurb:
-      "Our wholesale tool range includes quality hardware and equipment that lets retailers serve professionals and DIY customers with ease.",
-    highlights: ["Hand tools", "Power tools", "Hardware", "Garden & outdoor", "Safety gear"],
+      "Everyday health, wellness, and household essentials with fast, repeat-purchase demand that keeps customers coming back.",
+    highlights: [
+      "Vitamins & supplements",
+      "Personal care",
+      "Cleaning supplies",
+      "Paper & disposables",
+      "Baby & family care",
+    ],
   },
   {
-    slug: "grocery",
-    name: "Grocery",
-    blurb: "Shelf-stable pantry staples and high-velocity consumables.",
-    highlights: ["Pantry staples", "Snacks", "Beverages", "Canned goods", "Condiments"],
+    slug: "patio-lawn-garden",
+    name: "Patio, Lawn & Garden",
+    blurb:
+      "Outdoor living, gardening, and seasonal ranges that move with every season and drive strong basket sizes.",
+    highlights: [
+      "Garden tools",
+      "Outdoor furniture",
+      "Grills & outdoor cooking",
+      "Planters & pots",
+      "Lawn care",
+    ],
+  },
+  {
+    slug: "tools-home-improvement",
+    name: "Tools & Home Improvement",
+    blurb:
+      "Hardware, power tools, and improvement supplies that let retailers serve professionals and DIY customers with ease.",
+    highlights: [
+      "Power tools",
+      "Hand tools",
+      "Hardware & fasteners",
+      "Electrical",
+      "Plumbing",
+    ],
   },
   {
     slug: "automotive",
     name: "Automotive",
     blurb:
-      "Our automotive wholesale line includes car care, parts, and accessories to help retailers serve customers and grow their profits.",
-    highlights: ["Car care", "Parts", "Accessories", "Fluids & oils", "Shop tools"],
+      "Car care, parts, and accessories that keep drivers, workshops, and retailers reliably stocked and profitable.",
+    highlights: [
+      "Car care",
+      "Parts & accessories",
+      "Fluids & oils",
+      "Shop tools & equipment",
+      "Interior & exterior",
+    ],
   },
   {
-    slug: "industrial",
-    name: "Industrial",
+    slug: "industrial-scientific",
+    name: "Industrial & Scientific",
     blurb:
-      "We deliver reliable industrial supplies and equipment in bulk, helping retailers serve workshops, businesses, and contractors easily.",
-    highlights: ["Bulk supplies", "Equipment", "Fasteners", "Safety & PPE", "Packaging"],
+      "Bulk industrial, safety, and lab supplies for businesses, workshops, and facilities that need dependable volume.",
+    highlights: [
+      "Industrial supplies",
+      "Safety & PPE",
+      "Lab & scientific",
+      "Material handling",
+      "Fasteners & fittings",
+    ],
   },
 ] as const;
 

@@ -17,6 +17,7 @@ export interface MillerItem {
   name: string;
   blurb: string;
   lines: string[];
+  href?: string; // link to the category's own page
   icon?: React.ReactNode;
 }
 
@@ -168,17 +169,25 @@ export function MillerColumns({
             <Folder size={13} className="text-mist/40" />
             {current.lines.length} product lines in stock
           </div>
-          <div className="mt-auto pt-8">
+          <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-8">
             <Link
-              href={ctaHref}
+              href={current.href ?? ctaHref}
               className="group/link inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.03] px-5 py-2.5 font-sans text-[0.875rem] font-medium text-ink transition-colors hover:border-white/30"
             >
-              {ctaLabel}
+              {current.href ? `Explore ${current.name}` : ctaLabel}
               <ArrowUpRight
                 size={15}
                 className="text-brand-gold transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
               />
             </Link>
+            {current.href ? (
+              <Link
+                href={ctaHref}
+                className="font-sans text-[0.8125rem] text-mist transition-colors hover:text-ink"
+              >
+                {ctaLabel}
+              </Link>
+            ) : null}
           </div>
         </div>
       </div>

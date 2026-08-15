@@ -43,10 +43,13 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  // Self-contained build output for the Hostinger Node deploy. Skip it on Vercel:
-  // Vercel runs its own file-tracing (onBuildComplete) that conflicts with
-  // standalone output and fails on `.next/next-server.js.nft.json`.
-  output: process.env.VERCEL ? undefined : "standalone",
+  // Standalone output is only for a self-hosted Node deploy (e.g. Hostinger),
+  // enabled explicitly with BUILD_STANDALONE=1. It is OFF by default so hosts
+  // that run their own file-tracing — notably Vercel, whose onBuildComplete
+  // step fails on `.next/next-server.js.nft.json` when standalone is on — build
+  // cleanly. (Gating on a positive opt-in is safer than checking process.env.VERCEL,
+  // which isn't set if a project disables Vercel's system env vars.)
+  output: process.env.BUILD_STANDALONE ? "standalone" : undefined,
   poweredByHeader: false,
   reactStrictMode: true,
   async headers() {

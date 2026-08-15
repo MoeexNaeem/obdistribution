@@ -43,12 +43,12 @@ export const services: { icon: LucideIcon; title: string; body: string }[] = [
   },
 ];
 
-/** Stats banner (PRD §5.1): 7+, 30+, 200+, 99%. */
+/** Stats banner. */
 export const stats: { value: string; label: string }[] = [
-  { value: "7+", label: "Years Experience" },
-  { value: "30+", label: "Trusted Brands" },
-  { value: "200+", label: "Product Range" },
-  { value: "99%", label: "On-Time Fulfillment" },
+  { value: "8+", label: "Years Experience" },
+  { value: "80+", label: "Trusted Brands" },
+  { value: "2000+", label: "Product Range" },
+  { value: "180+", label: "Retail Partners" },
 ];
 
 /** "How We Help You Grow" — feeds the auto-cycling FeaturesTabs. */
@@ -94,43 +94,43 @@ export const featureTabs: FeatureTab[] = [
   },
 ];
 
-/** Testimonials (adapted from the wholesale category). */
+/** Testimonials — retailers across the five distribution categories. */
 export const testimonials: { quote: string; name: string; role: string }[] = [
   {
     quote:
-      "Reliable supply and clear communication — exactly what we needed. Working with OB Distributions has made our inventory process stress-free.",
-    name: "Abdul Karim",
-    role: "Home & Kitchen Retailer",
+      "Their patio and garden range sells through every season. Reordering is effortless and the stock is always there when we need it.",
+    name: "Daniel Ortega",
+    role: "Owner, GreenAcre Patio & Garden",
   },
   {
     quote:
-      "OB Distributions completely simplified our wholesale buying. Orders are always on time, and their selection helps us keep customers happy.",
-    name: "Sarah T. Johnson",
-    role: "Retail Store Owner",
+      "OB Distributions keeps our aisles full — power tools, fasteners, everything. Orders are always on time and the margins hold up.",
+    name: "Sarah Whitfield",
+    role: "Manager, BuildRight Home Improvement",
   },
   {
     quote:
-      "The pricing is competitive and the support team is excellent. They helped us choose the right products and boosted our sales quickly.",
-    name: "Christopher Deoudes",
-    role: "Grocery Shop Manager",
-  },
-  {
-    quote:
-      "Their beauty range moves fast and the margins are healthy. Reordering is effortless and the stock is always there when we need it.",
-    name: "Nadia Reyes",
-    role: "Beauty Boutique Owner",
-  },
-  {
-    quote:
-      "Consistent supply across every one of our locations. The team flags trends early, so we stock what actually sells.",
+      "Consistent supply on health and household essentials across all our stores. The team flags trends early so we stock what actually sells.",
     name: "Marcus Bell",
-    role: "Convenience Store Chain",
+    role: "Buyer, DailyCare Household Market",
   },
   {
     quote:
-      "Fast fulfillment and transparent pricing let us scale our listings without the usual sourcing headaches.",
+      "Competitive pricing on parts and car care, plus support that actually helps us choose the right assortment for our customers.",
+    name: "Christopher Deoudes",
+    role: "Owner, ProAuto Parts & Accessories",
+  },
+  {
+    quote:
+      "Reliable bulk supply of industrial and safety gear with clear communication end to end. Wholesale without the guesswork.",
     name: "Priya Anand",
-    role: "Online Marketplace Seller",
+    role: "Procurement, MetroLine Industrial Supply",
+  },
+  {
+    quote:
+      "Fast fulfillment and transparent pricing let us scale our lawn and outdoor listings without the usual sourcing headaches.",
+    name: "Nadia Reyes",
+    role: "Owner, Everbloom Lawn & Outdoor",
   },
 ];
 
@@ -178,12 +178,24 @@ export const values: { title: string; body: string }[] = [
   },
 ];
 
-/** Focus-area metrics (About page) — hairline tracks with a gold fill. */
-export const focusAreas: { label: string; value: number }[] = [
-  { label: "Reliable Supply Chain", value: 96 },
-  { label: "Competitive Pricing", value: 92 },
-  { label: "Fulfillment Speed", value: 88 },
-  { label: "Partner Support", value: 98 },
+/** Focus areas (About page) — the pillars we hold ourselves to. */
+export const focusAreas: { label: string; blurb: string }[] = [
+  {
+    label: "Reliable Supply Chain",
+    blurb: "Dependable stock and consistent availability on core SKUs, every order.",
+  },
+  {
+    label: "Competitive Pricing",
+    blurb: "Volume-based wholesale rates that protect your margin as you grow.",
+  },
+  {
+    label: "Fulfillment Speed",
+    blurb: "Orders that move on schedule so your shelves are never left waiting.",
+  },
+  {
+    label: "Partner Support",
+    blurb: "A dedicated team guiding assortment, reorders, and long-term growth.",
+  },
 ];
 
 /** Differentiators (Why OB page). */

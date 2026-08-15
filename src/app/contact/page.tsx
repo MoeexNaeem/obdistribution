@@ -77,8 +77,8 @@ export default function ContactPage() {
               items={[
                 { value: "8", label: "Trade hubs" },
                 { value: "24/7", label: "Fulfillment" },
-                { value: "200+", label: "Brands" },
-                { value: "99%", label: "On-time" },
+                { value: "80+", label: "Brands" },
+                { value: "2000+", label: "Products" },
               ]}
             />
           </Reveal>

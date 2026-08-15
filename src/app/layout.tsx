@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SiteBackground } from "@/components/layout/SiteBackground";
+import { site } from "@/lib/site";
 
 // Firecrawl uses Suisse (a humanist grotesque); Geist is the closest freely
 // available match and pairs natively with Geist Mono. Primary face for
@@ -58,10 +59,33 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: site.name,
+  url: SITE_URL,
+  logo: `${SITE_URL}/icon.png`,
+  description: site.description,
+  email: site.email,
+  telephone: site.phone,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.address.line1,
+    addressLocality: site.address.city,
+    addressRegion: site.address.state,
+    postalCode: site.address.zip,
+    addressCountry: "US",
+  },
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`h-full ${geistSans.variable} ${geistMono.variable}`}>
       <body className="min-h-full flex flex-col bg-canvas text-ink font-serif">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
         <SiteBackground />
         <Navbar />
         <main className="flex-1">{children}</main>

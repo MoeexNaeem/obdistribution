@@ -33,6 +33,7 @@ Full dependency list: `next, react, react-dom, tailwindcss, mongodb, zod, lucide
 | `/` | Home — the full marketing landing page (see sections below) |
 | `/about` | About Us — hero, values, animated focus-area bars |
 | `/categories` | Distribution Categories — dedicated page. Interactive **Miller-columns** catalog browser (category → product lines → detail, with breadcrumb + keyboard nav), a `StatStrip`, and a CTA. Replaces the old navbar mega-dropdown. |
+| `/categories/[slug]` | **Programmatic SEO** — one statically-generated (SSG) page per category (5 total: health-household, patio-lawn-garden, tools-home-improvement, automotive, industrial-scientific). `generateStaticParams` + per-page `generateMetadata` (canonical, OG) + BreadcrumbList/CollectionPage JSON-LD. |
 | `/why-ob-distributions` | Differentiators (ScrollStack) + FAQ accordion |
 | `/wholesale-program` | Wholesale application (perks + `WholesaleForm` with custom `SmoothSelect` dropdowns) |
 | `/contact` | Contact form + **COBE WebGL globe** (global-network section) + keyless Google Maps embed |
@@ -112,11 +113,17 @@ Environment variables: `MONGODB_URI` (required in prod), `MONGODB_DB` (default
 build, set env vars in the panel, run `node .next/standalone/server.js` (Node 20+). See
 `README.md` for full deploy steps.
 
-**Deploy target & `output`:** `next.config.ts` sets `output: "standalone"` only when
-**not** on Vercel (`process.env.VERCEL`). Vercel runs its own file-tracing
-(`onBuildComplete`) that conflicts with standalone output and fails on
-`.next/next-server.js.nft.json`; leaving `output` at its default on Vercel fixes that while
-Hostinger keeps the standalone bundle. So the same repo deploys cleanly to both.
+**Deploy target & `output`:** `next.config.ts` enables `output: "standalone"` only when
+`BUILD_STANDALONE=1` (set it for a self-hosted Node/Hostinger build → run
+`node .next/standalone/server.js`). It's OFF by default so Vercel — whose `onBuildComplete`
+file-tracing fails on `.next/next-server.js.nft.json` when standalone is on — builds cleanly
+with the default output. (Gating on a positive opt-in is safer than `process.env.VERCEL`,
+which is undefined if a project disables Vercel's system env vars.)
+
+**SEO:** every page is server-rendered (static/SSG) with full HTML; per-page `metadata`
+(title/description/canonical/OG); `sitemap.ts` lists all routes incl. the 5 programmatic
+category pages; `robots.ts` allows all but `/api/` and points at the sitemap; site-wide
+Organization JSON-LD in `layout.tsx`, plus Breadcrumb/CollectionPage JSON-LD per category.
 
 ---
 

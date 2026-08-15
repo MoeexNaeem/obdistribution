@@ -1,12 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Boxes, TrendingUp, Zap, Handshake, type LucideIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { focusAreas } from "@/lib/content";
 
 /*
-  Focus-area metrics (PRD §5.2): simple hairline tracks with a Brand Gold fill
-  line. Labels in Arial 13px. The fill grows in when scrolled into view.
+  Focus areas (About page) — the pillars we hold ourselves to, as a clean
+  hairline ledger: gold-marked title + supporting line, staggered fade-in on
+  scroll. No metrics or percentages — just the commitments themselves.
 */
+
+const icons: LucideIcon[] = [Boxes, TrendingUp, Zap, Handshake];
+
 export function FocusBars() {
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
@@ -14,8 +20,6 @@ export function FocusBars() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    // The gold fill grows in on view; reduced-motion CSS collapses the
-    // transition to ~instant. State is set only in the async observer callback.
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -30,26 +34,32 @@ export function FocusBars() {
   }, []);
 
   return (
-    <div ref={ref} className="space-y-8">
-      {focusAreas.map((area, i) => (
-        <div key={area.label}>
-          <div className="flex items-baseline justify-between">
-            <span className="text-fn uppercase tracking-[0.12em] text-mist">
-              {area.label}
+    <div ref={ref} className="border-t border-hairline">
+      {focusAreas.map((area, i) => {
+        const Icon = icons[i] ?? Boxes;
+        return (
+          <div
+            key={area.label}
+            className={cn(
+              "flex items-start gap-4 border-b border-hairline py-6 transition-all duration-700 ease-out sm:gap-5",
+              shown ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0",
+            )}
+            style={{ transitionDelay: `${i * 100}ms` }}
+          >
+            <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px] bg-brand-gold/10 ring-1 ring-brand-gold/25">
+              <Icon size={17} className="text-brand-gold" />
             </span>
-            <span className="font-serif text-ink">{area.value}%</span>
+            <div>
+              <h3 className="font-sans text-[1.0625rem] font-semibold leading-tight text-ink">
+                {area.label}
+              </h3>
+              <p className="mt-1.5 font-sans text-[0.9375rem] leading-relaxed text-mist">
+                {area.blurb}
+              </p>
+            </div>
           </div>
-          <div className="mt-3 h-px w-full bg-hairline">
-            <div
-              className="h-px bg-brand-gold transition-[width] duration-1000 ease-out"
-              style={{
-                width: shown ? `${area.value}%` : "0%",
-                transitionDelay: `${i * 120}ms`,
-              }}
-            />
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

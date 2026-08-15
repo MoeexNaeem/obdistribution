@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import {
-  Sparkles,
-  UtensilsCrossed,
+  HeartPulse,
+  Sprout,
   Wrench,
-  ShoppingBasket,
   Car,
-  Factory,
+  FlaskConical,
+  ShoppingBasket,
   type LucideIcon,
 } from "lucide-react";
 import { Section } from "@/components/ui/Section";
@@ -23,12 +23,11 @@ export const metadata: Metadata = {
 };
 
 const icons: Record<string, LucideIcon> = {
-  beauty: Sparkles,
-  "home-kitchen": UtensilsCrossed,
-  "tools-outdoor": Wrench,
-  grocery: ShoppingBasket,
+  "health-household": HeartPulse,
+  "patio-lawn-garden": Sprout,
+  "tools-home-improvement": Wrench,
   automotive: Car,
-  industrial: Factory,
+  "industrial-scientific": FlaskConical,
 };
 
 export default function CategoriesPage() {
@@ -39,6 +38,7 @@ export default function CategoriesPage() {
       name: c.name,
       blurb: c.blurb,
       lines: [...c.highlights],
+      href: `/categories/${c.slug}`,
       icon: <Icon size={18} />,
     };
   });
@@ -83,10 +83,10 @@ export default function CategoriesPage() {
           <Reveal from="right" delay={120} className="self-center">
             <StatStrip
               items={[
-                { value: "6", label: "Categories" },
-                { value: "200+", label: "Brands" },
+                { value: "5", label: "Categories" },
+                { value: "80+", label: "Brands" },
+                { value: "2000+", label: "Products" },
                 { value: "One", label: "Invoice" },
-                { value: "99%", label: "On-time" },
               ]}
             />
           </Reveal>

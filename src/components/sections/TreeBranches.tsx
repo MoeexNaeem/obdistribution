@@ -51,7 +51,7 @@ export function TreeBranches() {
         <linearGradient id="ht-branch" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#fde68a" />
           <stop offset="0.55" stopColor="#fbbf24" />
-          <stop offset="1" stopColor="#f59e0b" stopOpacity="0.2" />
+          <stop offset="1" stopColor="#f59e0b" stopOpacity="0.5" />
         </linearGradient>
       </defs>
       <g
@@ -61,9 +61,11 @@ export function TreeBranches() {
         strokeLinecap="round"
         vectorEffect="non-scaling-stroke"
       >
-        {/* Three main branches: hub (600,58) → card centres at y=240 */}
+        {/* Three main branches: hub (600,58) → card centres at y=240. The middle
+            branch has a slight bow so it isn't a degenerate vertical bezier
+            (which some renderers drop when animated via pathLength/dash). */}
         <path pathLength={1} d="M600 58 C 600 120 290 130 192 240" style={draw(0)} />
-        <path pathLength={1} d="M600 58 C 600 150 600 180 600 240" style={draw(0.18)} />
+        <path pathLength={1} d="M600 58 C 597 132 603 188 600 240" style={draw(0.18)} />
         <path pathLength={1} d="M600 58 C 600 120 910 130 1008 240" style={draw(0.36)} />
         {/* Organic twigs */}
         <path

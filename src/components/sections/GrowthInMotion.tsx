@@ -40,7 +40,7 @@ const features: Feature[] = [
     title: "Trusted Brands",
     body: "We give retailers access to dependable brands and high-demand products that support consistent sales.",
     href: "/why-ob-distributions",
-    panel: { label: "Brands", value: "30+", corner: "tr" },
+    panel: { label: "Brands", value: "80+", corner: "tr" },
   },
   {
     n: "02",
@@ -64,7 +64,7 @@ const features: Feature[] = [
     title: "Reliable Supply",
     body: "Maintain steady inventory with dependable product availability and delivery support.",
     href: "/why-ob-distributions",
-    panel: { label: "In-stock", value: "99%", corner: "br" },
+    panel: { label: "Core SKUs", value: "2000+", corner: "br" },
   },
   {
     n: "05",
@@ -85,10 +85,10 @@ const features: Feature[] = [
 ];
 
 const metrics = [
-  { value: 7, suffix: "+", label: "Years of Experience" },
-  { value: 30, suffix: "+", label: "Trusted Brands" },
-  { value: 200, suffix: "+", label: "Products Available" },
-  { value: 99, suffix: "%", label: "Order Accuracy" },
+  { value: 8, suffix: "+", label: "Years of Experience" },
+  { value: 80, suffix: "+", label: "Trusted Brands" },
+  { value: 2000, suffix: "+", label: "Products Available" },
+  { value: 180, suffix: "+", label: "Retail Partners" },
 ];
 
 // Glassy card surface — translucent navbar tone + backdrop blur, so stacked

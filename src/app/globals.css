@@ -47,6 +47,17 @@ html {
   background: var(--color-canvas);
 }
 
+/*
+  Clip transient horizontal overflow (e.g. Reveal's slide-in transforms on
+  full-width elements) so mobile never gets a sideways scrollbar. `clip` (not
+  `hidden`) does NOT create a scroll container, so sticky positioning — the
+  floating nav and the stacking service cards — keeps working.
+*/
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   /* Ambient depth is provided by <SiteBackground /> (fixed, layered) */
   background-color: var(--color-canvas);
