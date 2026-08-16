@@ -9,7 +9,6 @@ export const businessTypes = [
   { value: "online-seller", label: "Online Seller" },
   { value: "distributor", label: "Distributor / Wholesaler" },
   { value: "convenience-store", label: "Convenience Store" },
-  { value: "salon-spa", label: "Salon / Spa" },
   { value: "automotive-shop", label: "Automotive Shop" },
   { value: "other", label: "Other" },
 ] as const;
