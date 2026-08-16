@@ -40,7 +40,7 @@ const features: Feature[] = [
     title: "Trusted Brands",
     body: "We give retailers access to dependable brands and high-demand products that support consistent sales.",
     href: "/why-ob-distributions",
-    panel: { label: "Selection", value: "Top-tier", corner: "tr" },
+    panel: { label: "Brands", value: "50+", corner: "tr" },
   },
   {
     n: "02",
@@ -48,7 +48,7 @@ const features: Feature[] = [
     title: "Easy Ordering",
     body: "Our ordering process is designed to be simple, fast, and hassle-free for growing businesses.",
     href: "/contact",
-    panel: { label: "Reorder", value: "Instant", corner: "br" },
+    panel: { label: "Reorder", value: "1-click", corner: "br" },
   },
   {
     n: "03",
@@ -56,7 +56,7 @@ const features: Feature[] = [
     title: "Bulk Pricing",
     body: "Get competitive wholesale pricing and stronger margins with volume-based purchasing.",
     href: "/contact",
-    panel: { label: "Pricing", value: "Volume", corner: "tr" },
+    panel: { label: "Volume discount", value: "Up to 30%", corner: "tr" },
   },
   {
     n: "04",
@@ -64,7 +64,7 @@ const features: Feature[] = [
     title: "Reliable Supply",
     body: "Maintain steady inventory with dependable product availability and delivery support.",
     href: "/why-ob-distributions",
-    panel: { label: "Availability", value: "In stock", corner: "br" },
+    panel: { label: "Core SKUs", value: "2000+", corner: "br" },
   },
   {
     n: "05",
@@ -72,7 +72,7 @@ const features: Feature[] = [
     title: "Retailer Support",
     body: "Our team is here to help with product guidance, orders, and ongoing supply needs.",
     href: "/contact",
-    panel: { label: "Support", value: "Hands-on", corner: "tr" },
+    panel: { label: "Response", value: "< 24h", corner: "tr" },
   },
   {
     n: "06",
@@ -80,7 +80,7 @@ const features: Feature[] = [
     title: "Product Insights",
     body: "Use practical market knowledge to choose products that match customer demand.",
     href: "/about",
-    panel: { label: "Buying", value: "Data-led", corner: "br" },
+    panel: { label: "Best-sellers", value: "Top 10", corner: "br" },
   },
 ];
 
