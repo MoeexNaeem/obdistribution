@@ -8,9 +8,6 @@ export const businessTypes = [
   { value: "retail-store", label: "Retail Store" },
   { value: "online-seller", label: "Online Seller" },
   { value: "distributor", label: "Distributor / Wholesaler" },
-  { value: "convenience-store", label: "Convenience Store" },
-  { value: "automotive-shop", label: "Automotive Shop" },
-  { value: "other", label: "Other" },
 ] as const;
 
 export const storefrontOptions = [

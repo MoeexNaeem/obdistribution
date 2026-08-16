@@ -3,13 +3,13 @@ import { site } from "@/lib/site";
 
 /*
   Email delivery via SMTP (nodemailer) — used to notify the OB inbox
-  (ori@obdistributions.com) when a contact message or wholesale application
+  (info@obdistributions.com) when a contact message or wholesale application
   comes in. Configured entirely through environment variables so no secrets
   live in the repo:
 
     SMTP_HOST   default smtp.gmail.com   (Google Workspace)
     SMTP_PORT   default 465
-    SMTP_USER   the mailbox login (e.g. ori@obdistributions.com)
+    SMTP_USER   the mailbox login (e.g. info@obdistributions.com)
     SMTP_PASS   an app password / SMTP password
     SMTP_FROM   optional "From" (defaults to SMTP_USER)
     MAIL_TO     optional recipient (defaults to site.email)

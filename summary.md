@@ -62,7 +62,7 @@ Full dependency list: `next, react, react-dom, tailwindcss, mongodb, zod, lucide
 ## Backend & security
 
 - **Forms:** `/api/contact`, `/api/wholesale`, and `/api/leads` write to MongoDB collections `contact_submissions`, `wholesale_applications`, and `leads`, each with `meta` (ip, user-agent, referer) + `createdAt`.
-- **Email (nodemailer):** `lib/mailer.ts` sends a notification of each contact/wholesale submission to the OB inbox (`ori@obdistributions.com`) over SMTP. Configured via env (`SMTP_HOST`/`SMTP_PORT`/`SMTP_USER`/`SMTP_PASS`, optional `SMTP_FROM`/`MAIL_TO`); Google Workspace defaults. Best-effort — a mail failure never fails the submission, and with no SMTP creds the forms still work (no email sent).
+- **Email (nodemailer):** `lib/mailer.ts` sends a notification of each contact/wholesale submission to the OB inbox (`info@obdistributions.com`) over SMTP. Configured via env (`SMTP_HOST`/`SMTP_PORT`/`SMTP_USER`/`SMTP_PASS`, optional `SMTP_FROM`/`MAIL_TO`); Google Workspace defaults. Best-effort — a mail failure never fails the submission, and with no SMTP creds the forms still work (no email sent).
 - **Connection:** cached MongoDB client (`lib/mongodb.ts`) — safe for HMR, serverless, and a long-lived Node server. Without `MONGODB_URI`, dev validates + accepts but does not persist; prod returns 503.
 - **Validation:** Zod schemas (`lib/validation.ts`), trimmed + length-capped.
 - **Rate limiting:** in-memory 5 req/min per IP per endpoint (`lib/rateLimit.ts`).

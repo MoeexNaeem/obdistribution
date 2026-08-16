@@ -12,7 +12,7 @@ export const site = {
     "OB Distributions is your trusted wholesale distribution partner. We help retailers and businesses source dependable products, competitive pricing, and reliable support for long-term growth.",
   phone: "+1 (217) 290-2726",
   phoneHref: "tel:+12172902726",
-  email: "ori@obdistributions.com",
+  email: "info@obdistributions.com",
   address: {
     line1: "1118 25th Street Unit 9",
     city: "West Palm Beach",
@@ -50,7 +50,7 @@ export const categories = [
     slug: "patio-lawn-garden",
     name: "Patio, Lawn & Garden",
     blurb:
-      "Outdoor living, gardening, and seasonal ranges that move with every season and keep customers coming back.",
+      "Outdoor living, gardening, and seasonal ranges that move with every season and bring variety to every outdoor space.",
     highlights: [
       "Garden tools",
       "Outdoor furniture",
