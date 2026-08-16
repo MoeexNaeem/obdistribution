@@ -5,11 +5,22 @@ import { rateLimit, clientIp } from "@/lib/rateLimit";
 import { badRequest, ok, serverError, tooMany, unavailable } from "@/lib/apiResponse";
 import { sendMail, rows } from "@/lib/mailer";
 import type { WholesaleInput } from "@/lib/validation";
+import {
+  businessTypes,
+  storefrontOptions,
+  volumeOptions,
+  paymentMethods,
+} from "@/lib/wholesale";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const SUCCESS = "Application received — our team will review it and be in touch shortly.";
+
+/** Turn a stored option code into its human label for the email. */
+function labelOf(opts: readonly { value: string; label: string }[], value: string) {
+  return opts.find((o) => o.value === value)?.label ?? value;
+}
 
 /** Best-effort inbox notification — never blocks or fails the submission. */
 async function notify(data: WholesaleInput) {
@@ -21,12 +32,13 @@ async function notify(data: WholesaleInput) {
     ["Website", data.website],
     ["Address", data.address],
     ["Sales Tax / Resale ID", data.taxId],
-    ["Business type", data.businessType],
-    ["Storefront", data.storefront],
-    ["Monthly volume", data.monthlyVolume],
-    ["Payment method", data.paymentMethod],
+    ["Business type", labelOf(businessTypes, data.businessType)],
+    ["Storefront", labelOf(storefrontOptions, data.storefront)],
+    ["Monthly volume", labelOf(volumeOptions, data.monthlyVolume)],
+    ["Payment method", labelOf(paymentMethods, data.paymentMethod)],
     ["Heard about us", data.hearAbout],
     ["Message", data.message],
+    ["Consent confirmed", data.consent ? "Yes" : "No"],
   ]);
   const res = await sendMail({
     subject: `New wholesale application — ${data.companyName}`,
