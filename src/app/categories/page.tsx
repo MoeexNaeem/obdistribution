@@ -84,7 +84,7 @@ export default function CategoriesPage() {
             <StatStrip
               items={[
                 { value: "5", label: "Categories" },
-                { value: "80+", label: "Brands" },
+                { value: "50+", label: "Brands" },
                 { value: "2000+", label: "Products" },
                 { value: "One", label: "Invoice" },
               ]}

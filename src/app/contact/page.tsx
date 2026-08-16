@@ -77,7 +77,7 @@ export default function ContactPage() {
               items={[
                 { value: "8", label: "Trade hubs" },
                 { value: "24/7", label: "Fulfillment" },
-                { value: "80+", label: "Brands" },
+                { value: "50+", label: "Brands" },
                 { value: "2000+", label: "Products" },
               ]}
             />

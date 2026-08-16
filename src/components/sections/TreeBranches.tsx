@@ -67,19 +67,6 @@ export function TreeBranches() {
         <path pathLength={1} d="M600 58 C 600 120 290 130 192 240" style={draw(0)} />
         <path pathLength={1} d="M600 58 C 597 132 603 188 600 240" style={draw(0.18)} />
         <path pathLength={1} d="M600 58 C 600 120 910 130 1008 240" style={draw(0.36)} />
-        {/* Organic twigs */}
-        <path
-          pathLength={1}
-          d="M430 138 C 400 160 388 180 376 208"
-          strokeWidth="1.2"
-          style={draw(0.55)}
-        />
-        <path
-          pathLength={1}
-          d="M770 138 C 800 160 812 180 824 208"
-          strokeWidth="1.2"
-          style={draw(0.68)}
-        />
       </g>
       <g
         fill="#fbbf24"

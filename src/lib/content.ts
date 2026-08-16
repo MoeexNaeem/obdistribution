@@ -46,9 +46,9 @@ export const services: { icon: LucideIcon; title: string; body: string }[] = [
 /** Stats banner. */
 export const stats: { value: string; label: string }[] = [
   { value: "8+", label: "Years Experience" },
-  { value: "80+", label: "Trusted Brands" },
+  { value: "50+", label: "Trusted Brands" },
   { value: "2000+", label: "Product Range" },
-  { value: "180+", label: "Retail Partners" },
+  { value: "200+", label: "Retail Partners" },
 ];
 
 /** "How We Help You Grow" — feeds the auto-cycling FeaturesTabs. */
@@ -202,7 +202,7 @@ export const focusAreas: { label: string; blurb: string }[] = [
 export const differentiators: { title: string; body: string }[] = [
   {
     title: "One Partner, Every Category",
-    body: "Beauty, Home & Kitchen, Tools & Outdoor, Grocery, Automotive, and Industrial — sourced from a single trusted distributor.",
+    body: "We connect you with top brands and in-demand products across every category.",
   },
   {
     title: "Pricing That Scales",
