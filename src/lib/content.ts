@@ -14,7 +14,7 @@ export const services: { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: Boxes,
     title: "Product Sourcing",
-    body: "Access top brands and high-demand products across six categories, curated for resale margins.",
+    body: "Access top brands and high-demand products across five categories, curated for resale margins.",
   },
   {
     icon: Truck,

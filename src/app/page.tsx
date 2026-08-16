@@ -76,7 +76,7 @@ export default function HomePage() {
 
       {/* ── Statement: BlurHighlight ──────────────────────── */}
       <Section>
-        <div className="max-w-4xl">
+        <div className="mx-auto max-w-4xl text-center">
           <BlurHighlight
             text="We connect you with top brands and in-demand products across every category. We make it easy for retailers to buy wholesale, stay competitive, and grow profitably — all from one trusted platform."
             highlight={["top brands", "wholesale", "grow", "profitably", "trusted"]}

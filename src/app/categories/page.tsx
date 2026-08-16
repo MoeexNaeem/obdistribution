@@ -48,7 +48,7 @@ export default function CategoriesPage() {
       <PageHero
         eyebrow="Distribution Categories"
         title="Everything your shelves need"
-        subtitle="Six wholesale categories, one dependable partner. Browse the ranges we distribute and get access to high-velocity inventory that keeps customers coming back."
+        subtitle="Five wholesale categories, one dependable partner. Browse the ranges we distribute and get access to high-velocity inventory that keeps customers coming back."
       />
 
       {/* Catalog browser — Miller columns */}

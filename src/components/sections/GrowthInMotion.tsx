@@ -80,7 +80,7 @@ const features: Feature[] = [
     title: "Product Insights",
     body: "Use practical market knowledge to choose products that match customer demand.",
     href: "/about",
-    panel: { label: "Best-sellers", value: "Top 10", corner: "br" },
+    panel: { label: "Buying", value: "Data-led", corner: "br" },
   },
 ];
 

@@ -10,8 +10,8 @@ export const site = {
   subTagline: "Reliable Supply. Lasting Partnerships.",
   description:
     "OB Distributions is your trusted wholesale distribution partner. We help retailers and businesses source dependable products, competitive pricing, and reliable support for long-term growth.",
-  phone: "+1 (561) 749-7820",
-  phoneHref: "tel:+15617497820",
+  phone: "+1 (217) 290-2726",
+  phoneHref: "tel:+12172902726",
   email: "ori@obdistributions.com",
   address: {
     line1: "1118 25th Street Unit 9",
@@ -50,7 +50,7 @@ export const categories = [
     slug: "patio-lawn-garden",
     name: "Patio, Lawn & Garden",
     blurb:
-      "Outdoor living, gardening, and seasonal ranges that move with every season and drive strong basket sizes.",
+      "Outdoor living, gardening, and seasonal ranges that move with every season and keep customers coming back.",
     highlights: [
       "Garden tools",
       "Outdoor furniture",
