@@ -57,6 +57,9 @@ export const metadata: Metadata = {
       "Top Brands. Top Products. All In One Place. Reliable supply and lasting partnerships for retailers.",
   },
   robots: { index: true, follow: true },
+  verification: {
+    google: "8PSzul_n3XeonOI7QP0SxEbejUXJmtkgvjwSAuDvlUY",
+  },
 };
 
 const orgJsonLd = {
